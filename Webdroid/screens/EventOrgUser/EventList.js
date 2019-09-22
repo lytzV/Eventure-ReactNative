@@ -58,7 +58,7 @@ export default class EventList extends React.Component{
     .then((response) => {
       var events = response
       for (let e of events){
-        console.log(e["Start time"])
+        //console.log(e["Start time"])
       }
       this.setState({
           isLoading: false,
