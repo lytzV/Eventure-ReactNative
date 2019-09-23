@@ -10,23 +10,25 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#FF7868',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 15,
+    color: '#FFFFFF',
   },
   subtitle: {
-    fontSize: 10
+    fontSize: 10,
+    color: '#FFFFFF',
   }
 });
 
 function Item({ title}) {
   return (
     <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, styles.color]}>{title}</Text>
     </View>
   );
 }

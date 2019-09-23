@@ -1,11 +1,12 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import EventList from '../screens/EventOrgUser/EventList';
 import OrgList from '../screens/EventOrgUser/OrgList';
 import UserSetting from '../screens/EventOrgUser/UserSetting';
+import EventDetail from '../screens/EventOrgUser/EventCell/EventCell'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -13,9 +14,23 @@ const config = Platform.select({
 });
 
 const EventStack = createStackNavigator(
-  {
-    Events: EventList,
-  },
+    {
+      List: {
+        screen: EventList,
+        navigationOptions: {
+          title: 'Events',
+        },
+      },
+      Details: {
+        screen: EventDetail,
+        navigationOptions: ({ navigation }) => ({
+          title: navigation.state.params.Title,
+        }),
+      }
+    },
+    {
+      initialRouteName: 'List',
+    },
   config
 );
 
@@ -75,4 +90,12 @@ const tabNavigator = createBottomTabNavigator({
 
 tabNavigator.path = '';
 
-export default tabNavigator;
+//export default tabNavigator;
+
+const AppContainer = createAppContainer(tabNavigator);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}

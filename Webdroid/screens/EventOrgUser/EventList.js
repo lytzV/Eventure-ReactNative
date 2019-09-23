@@ -2,7 +2,8 @@ import React from 'react';
 import base64 from 'react-native-base64'
 import GlobalConstants from '../../GlobalConstants'
 import Constants from 'expo-constants';
-import { StyleSheet, FlatList, ActivityIndicator, Text, View } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { StyleSheet, FlatList, ActivityIndicator, Text, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,16 +11,18 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#FF7868',
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 15,
+    color: '#FFFFFF',
   },
   subtitle: {
-    fontSize: 10
+    fontSize: 10,
+    color: '#FFFFFF',
   }
 });
 
@@ -33,6 +36,7 @@ function Item({ title, when, where, who}) {
     </View>
   );
 }
+
 
 export default class EventList extends React.Component{
   constructor(props){
@@ -82,13 +86,25 @@ export default class EventList extends React.Component{
       <View style={{flex: 1, paddingTop:20}}>
           <FlatList
             data={this.state.data}
-            renderItem={({ item }) => <Item title={item.Title} when={item["Start time"]} where={item.Location} who={item["Organization title"]} />}
+            renderItem={({ item }) =>
+              <TouchableOpacity onPress={() => this.reveal(item)}>
+                <Item title={item.Title} when={item["Start time"]} where={item.Location} who={item["Organization title"]} />
+              </TouchableOpacity>
+            }
             keyExtractor={item => item.uuid}
           />
       </View>
     );
   }
+  reveal = (item) => {
+     //console.log('Selected Item :',item);
+     this.props.navigation.navigate('Details', { ...item });
+     //this.props.navigation.navigate('Details');
+     //console.log('yay');
+  }
 }
+
+
 
 EventList.navigationOptions = {
   title: 'Events',
