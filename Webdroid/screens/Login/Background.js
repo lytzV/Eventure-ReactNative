@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import Dimensions from 'Dimensions';
-import {StyleSheet, ImageBackground} from 'react-native';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Dimensions from "Dimensions";
+import { StyleSheet, ImageBackground } from "react-native";
 
-import bgSrc from '../../assets/images/background.png';
+import bgSrc from "../../assets/images/background.png";
 
 export default class Background extends Component {
   render() {
@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover',
-  },
+    resizeMode: "cover"
+  }
 });
