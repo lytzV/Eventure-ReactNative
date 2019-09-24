@@ -2,60 +2,59 @@
 //import { ExpoConfigView } from '@expo/samples';
 
 //export default function SettingsScreen() {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
-  //return <ExpoConfigView />;
+/**
+ * Go ahead and delete ExpoConfigView and replace it with your content;
+ * we just wanted to give you a quick view of your config.
+ */
+//return <ExpoConfigView />;
 //}
 
-
-import React from 'react';
-import { SectionList, Image, StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
+import React from "react";
+import { SectionList, Image, StyleSheet, Text, View } from "react-native";
+import Constants from "expo-constants";
 
 export default class SettingsScreen extends React.Component {
   render() {
     const { manifest } = Constants;
     const sections = [
-      { data: [{ value: manifest.sdkVersion }], title: 'sdkVersion' },
-      { data: [{ value: manifest.privacy }], title: 'privacy' },
-      { data: [{ value: manifest.version }], title: 'version' },
-      { data: [{ value: manifest.orientation }], title: 'orientation' },
+      { data: [{ value: manifest.sdkVersion }], title: "sdkVersion" },
+      { data: [{ value: manifest.privacy }], title: "privacy" },
+      { data: [{ value: manifest.version }], title: "version" },
+      { data: [{ value: manifest.orientation }], title: "orientation" },
       {
-        data: [{ value: manifest.primaryColor, type: 'color' }],
-        title: 'primaryColor',
+        data: [{ value: manifest.primaryColor, type: "color" }],
+        title: "primaryColor"
       },
       {
         data: [{ value: manifest.splash && manifest.splash.image }],
-        title: 'splash.image',
+        title: "splash.image"
       },
       {
         data: [
           {
             value: manifest.splash && manifest.splash.backgroundColor,
-            type: 'color',
-          },
+            type: "color"
+          }
         ],
-        title: 'splash.backgroundColor',
+        title: "splash.backgroundColor"
       },
       {
         data: [
           {
-            value: manifest.splash && manifest.splash.resizeMode,
-          },
+            value: manifest.splash && manifest.splash.resizeMode
+          }
         ],
-        title: 'splash.resizeMode',
+        title: "splash.resizeMode"
       },
       {
         data: [
           {
             value:
-              manifest.ios && manifest.ios.supportsTablet ? 'true' : 'false',
-          },
+              manifest.ios && manifest.ios.supportsTablet ? "true" : "false"
+          }
         ],
-        title: 'ios.supportsTablet',
-      },
+        title: "ios.supportsTablet"
+      }
     ];
 
     return (
@@ -76,7 +75,7 @@ export default class SettingsScreen extends React.Component {
   };
 
   _renderItem = ({ item }) => {
-    if (item.type === 'color') {
+    if (item.type === "color") {
       return (
         <SectionContent>
           {item.value && <Color value={item.value} />}
@@ -85,9 +84,7 @@ export default class SettingsScreen extends React.Component {
     } else {
       return (
         <SectionContent>
-          <Text style={styles.sectionContentText}>
-            {item.value}
-          </Text>
+          <Text style={styles.sectionContentText}>{item.value}</Text>
         </SectionContent>
       );
     }
@@ -112,9 +109,7 @@ const ListHeader = () => {
           {manifest.slug}
         </Text>
 
-        <Text style={styles.descriptionText}>
-          {manifest.description}
-        </Text>
+        <Text style={styles.descriptionText}>{manifest.description}</Text>
       </View>
     </View>
   );
@@ -123,25 +118,19 @@ const ListHeader = () => {
 const SectionHeader = ({ title }) => {
   return (
     <View style={styles.sectionHeaderContainer}>
-      <Text style={styles.sectionHeaderText}>
-        {title}
-      </Text>
+      <Text style={styles.sectionHeaderText}>{title}</Text>
     </View>
   );
 };
 
 const SectionContent = props => {
-  return (
-    <View style={styles.sectionContentContainer}>
-      {props.children}
-    </View>
-  );
+  return <View style={styles.sectionContentContainer}>{props.children}</View>;
 };
 
 const AppIconPreview = ({ iconUrl }) => {
   if (!iconUrl) {
     iconUrl =
-      'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png';
+      "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png";
   }
 
   return (
@@ -161,9 +150,7 @@ const Color = ({ value }) => {
       <View style={styles.colorContainer}>
         <View style={[styles.colorPreview, { backgroundColor: value }]} />
         <View style={styles.colorTextContainer}>
-          <Text style={styles.sectionContentText}>
-            {value}
-          </Text>
+          <Text style={styles.sectionContentText}>{value}</Text>
         </View>
       </View>
     );
@@ -173,54 +160,54 @@ const Color = ({ value }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   titleContainer: {
     paddingHorizontal: 15,
     paddingTop: 15,
     paddingBottom: 15,
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   titleIconContainer: {
     marginRight: 15,
-    paddingTop: 2,
+    paddingTop: 2
   },
   sectionHeaderContainer: {
-    backgroundColor: '#fbfbfb',
+    backgroundColor: "#fbfbfb",
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#ededed',
+    borderColor: "#ededed"
   },
   sectionHeaderText: {
-    fontSize: 14,
+    fontSize: 14
   },
   sectionContentContainer: {
     paddingTop: 8,
     paddingBottom: 12,
-    paddingHorizontal: 15,
+    paddingHorizontal: 15
   },
   sectionContentText: {
-    color: '#808080',
-    fontSize: 14,
+    color: "#808080",
+    fontSize: 14
   },
   nameText: {
-    fontWeight: '600',
-    fontSize: 18,
+    fontWeight: "600",
+    fontSize: 18
   },
   slugText: {
-    color: '#a39f9f',
+    color: "#a39f9f",
     fontSize: 14,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent"
   },
   descriptionText: {
     fontSize: 14,
     marginTop: 6,
-    color: '#4d4d4d',
+    color: "#4d4d4d"
   },
   colorContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center"
   },
   colorPreview: {
     width: 17,
@@ -228,12 +215,12 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     marginRight: 6,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#ccc',
+    borderColor: "#ccc"
   },
   colorTextContainer: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
+  title: "app.json"
 };
