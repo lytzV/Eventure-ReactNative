@@ -10,84 +10,72 @@
 //}
 
 import React from "react";
-import { SectionList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  SectionList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView
+} from "react-native";
 import Constants from "expo-constants";
 
 export default class SettingsScreen extends React.Component {
   render() {
     const { manifest } = Constants;
     const sections = [
-      { data: [{ value: manifest.sdkVersion }], title: "sdkVersion" },
-      { data: [{ value: manifest.privacy }], title: "privacy" },
-      { data: [{ value: manifest.version }], title: "version" },
-      { data: [{ value: manifest.orientation }], title: "orientation" },
       {
-        data: [{ value: manifest.primaryColor, type: "color" }],
-        title: "primaryColor"
+        data: ["Manage Account", "Professional Profile"],
+        title: "PERSONAL INFORMATION"
       },
       {
-        data: [{ value: manifest.splash && manifest.splash.image }],
-        title: "splash.image"
+        data: ["Scan Event Code", "Events I Checked In"],
+        title: "EVENT CHECK-IN"
       },
       {
-        data: [
-          {
-            value: manifest.splash && manifest.splash.backgroundColor,
-            type: "color"
-          }
-        ],
-        title: "splash.backgroundColor"
-      },
-      {
-        data: [
-          {
-            value: manifest.splash && manifest.splash.resizeMode
-          }
-        ],
-        title: "splash.resizeMode"
-      },
-      {
-        data: [
-          {
-            value:
-              manifest.ios && manifest.ios.supportsTablet ? "true" : "false"
-          }
-        ],
-        title: "ios.supportsTablet"
+        data: ["Favorite Events", "Interested Events", "My Tags"],
+        title: "PERSONAL INTEREST"
       }
     ];
 
     return (
-      <SectionList
-        style={styles.container}
-        renderItem={this._renderItem}
-        renderSectionHeader={this._renderSectionHeader}
-        stickySectionHeadersEnabled={true}
-        keyExtractor={(item, index) => index}
-        ListHeaderComponent={ListHeader}
-        sections={sections}
-      />
+      <View style={styles.container}>
+        <SectionList
+          style={styles.container}
+          renderItem={this.renderItem}
+          renderSectionHeader={this.renderSectionHeader}
+          stickySectionHeadersEnabled={true}
+          keyExtractor={(item, index) => index}
+          //ListHeaderComponent={ListHeader}
+          sections={sections}
+        />
+        <View style={styles.button}>
+          <Button
+            title="Press me"
+            color="#f194ff"
+            onPress={() => this.login()}
+          />
+        </View>
+      </View>
     );
   }
-
-  _renderSectionHeader = ({ section }) => {
+  //lambda func
+  login = () => {
+    //console.log('Selected Item :',item);
+    //console.log(EventCell.uuid);
+    this.props.navigation.navigate("Login");
+  };
+  renderSectionHeader = ({ section }) => {
     return <SectionHeader title={section.title} />;
   };
 
-  _renderItem = ({ item }) => {
-    if (item.type === "color") {
-      return (
-        <SectionContent>
-          {item.value && <Color value={item.value} />}
-        </SectionContent>
-      );
-    } else {
-      return (
-        <SectionContent>
-          <Text style={styles.sectionContentText}>{item.value}</Text>
-        </SectionContent>
-      );
-    }
+  renderItem = ({ item }) => {
+    return (
+      <SectionContent style={styles.item}>
+        <Text style={styles.sectionContentText}>{item.value}</Text>
+      </SectionContent>
+    );
   };
 }
 
@@ -124,7 +112,7 @@ const SectionHeader = ({ title }) => {
 };
 
 const SectionContent = props => {
-  return <View style={styles.sectionContentContainer}>{props.children}</View>;
+  return <View style={styles.item}>{props.children}</View>;
 };
 
 const AppIconPreview = ({ iconUrl }) => {
@@ -142,25 +130,22 @@ const AppIconPreview = ({ iconUrl }) => {
   );
 };
 
-const Color = ({ value }) => {
-  if (!value) {
-    return <View />;
-  } else {
-    return (
-      <View style={styles.colorContainer}>
-        <View style={[styles.colorPreview, { backgroundColor: value }]} />
-        <View style={styles.colorTextContainer}>
-          <Text style={styles.sectionContentText}>{value}</Text>
-        </View>
-      </View>
-    );
-  }
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  button: {
+    flex: 0,
+    backgroundColor: "#fff"
+  },
+  item: {
+    backgroundColor: "#FF7868",
+    marginVertical: 8,
+    marginHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingHorizontal: 15
   },
   titleContainer: {
     paddingHorizontal: 15,
@@ -182,13 +167,8 @@ const styles = StyleSheet.create({
   sectionHeaderText: {
     fontSize: 14
   },
-  sectionContentContainer: {
-    paddingTop: 8,
-    paddingBottom: 12,
-    paddingHorizontal: 15
-  },
   sectionContentText: {
-    color: "#808080",
+    color: "#FFFFFF",
     fontSize: 14
   },
   nameText: {
@@ -204,23 +184,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 6,
     color: "#4d4d4d"
-  },
-  colorContainer: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  colorPreview: {
-    width: 17,
-    height: 17,
-    borderRadius: 2,
-    marginRight: 6,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#ccc"
-  },
-  colorTextContainer: {
-    flex: 1
   }
 });
 SettingsScreen.navigationOptions = {
-  title: "app.json"
+  title: "Me"
 };

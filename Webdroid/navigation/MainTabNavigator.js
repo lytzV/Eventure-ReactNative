@@ -11,7 +11,7 @@ import EventList from "../screens/EventOrgUser/EventList";
 import OrgList from "../screens/EventOrgUser/OrgList";
 import UserSetting from "../screens/EventOrgUser/UserSetting";
 import EventDetail from "../screens/EventOrgUser/EventCell/EventCell";
-
+import Login from "../screens/Login/LoginScreen";
 const config = Platform.select({
   web: { headerMode: "screen" },
   default: {}
@@ -77,7 +77,21 @@ OrgStack.path = "";
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: UserSetting
+    Setting: {
+      screen: UserSetting,
+      navigationOptions: {
+        title: "Me"
+      }
+    },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerMode: "screen"
+      }
+    }
+  },
+  {
+    initialRouteName: "Setting"
   },
   config
 );
