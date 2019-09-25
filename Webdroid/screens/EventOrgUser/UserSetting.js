@@ -12,6 +12,7 @@
 import React from "react";
 import {
   SectionList,
+  AsyncStorage,
   Image,
   StyleSheet,
   Text,
@@ -21,7 +22,7 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 
-export default class SettingsScreen extends React.Component {
+export default class UserSetting extends React.Component {
   render() {
     const { manifest } = Constants;
     const sections = [
@@ -38,7 +39,8 @@ export default class SettingsScreen extends React.Component {
         title: "PERSONAL INTEREST"
       }
     ];
-
+    var user = AsyncStorage.getItem("User");
+    console.log(user);
     return (
       <View style={styles.container}>
         <SectionList
@@ -52,19 +54,21 @@ export default class SettingsScreen extends React.Component {
         />
         <View style={styles.button}>
           <Button
-            title="Press me"
+            title={user != null ? "Sign Out" : "Sign In"}
             color="#f194ff"
-            onPress={() => this.login()}
+            onPress={() => this.inOrOut()}
           />
         </View>
       </View>
     );
   }
   //lambda func
-  login = () => {
-    //console.log('Selected Item :',item);
-    //console.log(EventCell.uuid);
-    this.props.navigation.navigate("Login");
+  inOrOut = () => {
+    var user = AsyncStorage.getItem("User");
+    if (user != null) {
+      AsyncStorage.clear();
+    }
+    this.props.navigation.navigate("Auth");
   };
   renderSectionHeader = ({ section }) => {
     return <SectionHeader title={section.title} />;
@@ -73,7 +77,7 @@ export default class SettingsScreen extends React.Component {
   renderItem = ({ item }) => {
     return (
       <SectionContent style={styles.item}>
-        <Text style={styles.sectionContentText}>{item.value}</Text>
+        <Text style={styles.sectionContentText}>{item}</Text>
       </SectionContent>
     );
   };
@@ -186,6 +190,6 @@ const styles = StyleSheet.create({
     color: "#4d4d4d"
   }
 });
-SettingsScreen.navigationOptions = {
+UserSetting.navigationOptions = {
   title: "Me"
 };

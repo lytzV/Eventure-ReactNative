@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import base64 from "react-native-base64";
 import GlobalConstants from "../../GlobalConstants";
 import Dimensions from "Dimensions";
+import LoginScreen from "./LoginScreen";
 import LoginForm from "./LoginForm";
+import UserSetting from "../EventOrgUser/UserSetting";
 import {
   StyleSheet,
   TouchableOpacity,
+  AsyncStorage,
   Text,
   Animated,
   Easing,
@@ -15,6 +18,7 @@ import {
   View
 } from "react-native";
 import { Actions, ActionConst } from "react-native-router-flux";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import spinner from "../../assets/images/loading.gif";
 
@@ -61,14 +65,12 @@ export default class SubmitButton extends Component {
     fetch(req)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        //console.log(response);
         this.setState({
           isLoading: false,
           data: response
         });
-        if (this.state.data.status == "success") {
-          this.popAlert(this.state.data.status);
-        }
+        //console.log(this.state.data.status);
       })
       .catch(error => {
         console.error(error);
@@ -78,24 +80,32 @@ export default class SubmitButton extends Component {
       toValue: 1,
       duration: 200,
       easing: Easing.linear
-    }).start();
+    }).start();*/
 
     setTimeout(() => {
       this._onGrow();
     }, 2000);
 
     setTimeout(() => {
-      Actions.secondScreen();
+      if (this.state.data.status == "success") {
+        this.login(this.state.data["user info"]);
+      } else {
+        this.popAlert(this.state.data.status);
+      }
       this.setState({ isLoading: false });
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);
-    }, 2300);*/
+    }, 2300);
   }
+  login = async user => {
+    await AsyncStorage.setItem("User", JSON.stringify(user));
+    this.props.navigation.navigate("Main");
+  };
 
   popAlert = status => {
     Alert.alert(
       status,
-      "Welcome to Eventure!",
+      "Bamboozled!!!",
       [{ text: "OK", onPress: () => console.log("OK Pressed") }],
       { cancelable: false }
     );
@@ -108,7 +118,6 @@ export default class SubmitButton extends Component {
       easing: Easing.linear
     }).start();
   }
-
   render() {
     const changeWidth = this.buttonAnimated.interpolate({
       inputRange: [0, 1],

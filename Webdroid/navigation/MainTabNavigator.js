@@ -82,16 +82,7 @@ const SettingsStack = createStackNavigator(
       navigationOptions: {
         title: "Me"
       }
-    },
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        headerMode: "screen"
-      }
     }
-  },
-  {
-    initialRouteName: "Setting"
   },
   config
 );
