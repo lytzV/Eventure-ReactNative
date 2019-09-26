@@ -12,6 +12,8 @@ import OrgList from "../screens/EventOrgUser/OrgList";
 import UserSetting from "../screens/EventOrgUser/UserSetting";
 import EventDetail from "../screens/EventOrgUser/EventCell/EventCell";
 import Login from "../screens/Login/LoginScreen";
+import QR from "../screens/EventOrgUser/QR";
+import Checkin from "../screens/EventOrgUser/EventCell/CheckinScreen";
 const config = Platform.select({
   web: { headerMode: "screen" },
   default: {}
@@ -80,14 +82,33 @@ const SettingsStack = createStackNavigator(
     Setting: {
       screen: UserSetting,
       navigationOptions: {
-        title: "Me"
+        title: "Me",
+        tabBarVisible: true
       }
+    },
+    QR: {
+      screen: QR,
+      navigationOptions: {
+        headerMode: "screen",
+        title: "Scan QR Code",
+        tabBarVisible: false
+      }
+    },
+    Checkin: {
+      screen: Checkin,
+      navigationOptions: ({ navigation }) => ({
+        headerMode: "screen",
+        title: "Check In Here",
+        tabBarVisible: false
+      })
     }
   },
   config
 );
 
-SettingsStack.navigationOptions = {
+SettingsStack.navigationOptions = ({ navigation }) => ({
+  //tabBarVisible:
+  //navigation.state.routes[navigation.state.index] == "QR" ? false : true,
   tabBarLabel: "Me",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -95,7 +116,7 @@ SettingsStack.navigationOptions = {
       name={Platform.OS === "ios" ? "ios-options" : "md-options"}
     />
   )
-};
+});
 
 SettingsStack.path = "";
 

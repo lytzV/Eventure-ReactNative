@@ -35,18 +35,17 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class EventCell extends React.Component {
+export default class CheckinForm extends React.Component {
   static uuid;
   constructor(props) {
     super(props);
     this.state = { isLoading: true };
-    EventCell.uuid = props.navigation.state.params.uuid;
-    //console.log(props.navigation.state.params.uuid);
+    CheckinForm.uuid = props.navigation.state.params.item;
   }
 
   componentDidMount() {
     const queryString = {
-      uuid: EventCell.uuid
+      uuid: CheckinForm.uuid
     };
     var url =
       GlobalConstants.API_BASE_URL +

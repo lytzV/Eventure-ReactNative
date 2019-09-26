@@ -18,6 +18,7 @@ import {
   Text,
   View,
   Button,
+  TouchableOpacity,
   SafeAreaView
 } from "react-native";
 import Constants from "expo-constants";
@@ -76,10 +77,18 @@ export default class UserSetting extends React.Component {
 
   renderItem = ({ item }) => {
     return (
-      <SectionContent style={styles.item}>
-        <Text style={styles.sectionContentText}>{item}</Text>
-      </SectionContent>
+      <TouchableOpacity onPress={() => this.reveal(item)}>
+        <SectionContent style={styles.item}>
+          <Text style={styles.sectionContentText}>{item}</Text>
+        </SectionContent>
+      </TouchableOpacity>
     );
+  };
+  reveal = item => {
+    if (item == "Scan Event Code") {
+      this.props.navigation.navigate("QR");
+    }
+    //this.props.navigation.navigate("Details", { ...item });
   };
 }
 
