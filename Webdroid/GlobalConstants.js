@@ -1,6 +1,5 @@
-
-export default{
+export default {
   API_BASE_URL: "https://api.eventure-app.com/",
-  USERNAME: "Eventure 1.0.2",
-  PASSWORD: "b848a55bbc6ad4f225d2089bca8c6ca3",
-}
+  USERNAME: "Eventure 1.0.4",
+  PASSWORD: "efd2d743b153e71e6244b2ebf4bb9e75"
+};
