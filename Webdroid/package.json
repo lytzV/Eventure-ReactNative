@@ -27,10 +27,12 @@
     "react-native-base64": "0.0.2",
     "react-native-camera": "^3.6.0",
     "react-native-gesture-handler": "~1.3.0",
+    "react-native-picker-select": "^6.3.3",
     "react-native-router-flux": "^4.0.6",
     "react-native-tableview": "^3.0.0",
     "react-native-web": "^0.11.7",
-    "react-navigation": "^3.12.0"
+    "react-navigation": "^3.12.0",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",
