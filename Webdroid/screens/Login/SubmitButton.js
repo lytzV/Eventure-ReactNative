@@ -45,8 +45,8 @@ export default class SubmitButton extends Component {
       usr: LoginForm.info["usr"],
       pswd: LoginForm.info["pswd"]
     };
-    //console.log(LoginForm.info["usr"]);
-    //console.log(LoginForm.info["pswd"]);
+    console.log(LoginForm.info["usr"]);
+    console.log(LoginForm.info["pswd"]);
     var url =
       GlobalConstants.API_BASE_URL +
       "account/Authenticate?login=" +
@@ -65,7 +65,7 @@ export default class SubmitButton extends Component {
     fetch(req)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        //console.log(response);
         this.setState({
           isLoading: false,
           data: response
@@ -154,7 +154,7 @@ export default class SubmitButton extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: 5,
+    top: -95,
     alignItems: "center",
     justifyContent: "flex-start"
   },

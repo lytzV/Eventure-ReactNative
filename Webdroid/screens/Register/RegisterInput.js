@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "./RegisterForm"
 
 export default class RegisterInput extends Component {
   render() {
@@ -45,11 +45,11 @@ RegisterInput.propTypes = {
 };
 const styles = StyleSheet.create({
   input: {
-    alignSelf: "stretch",
+    alignSelf:'stretch',
     height: 40,
-    marginBottom: 30,
+    marginBottom:30,
     color: "#FF7868",
     borderBottomColor: "#FF7868",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   }
 });

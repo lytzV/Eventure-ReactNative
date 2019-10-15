@@ -12,7 +12,7 @@ import {
 
 import UserInput from "./UserInput";
 import SubmitButton from "./SubmitButton";
-//import Signup from "./Signup";
+import Signup from "./Signup";
 
 import eyeImg from "../../assets/images/eye.png";
 
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   btnEye: {
     position: "absolute",
-    top: 65,
+    top: 55,
     right: 28
   },
   iconEye: {
