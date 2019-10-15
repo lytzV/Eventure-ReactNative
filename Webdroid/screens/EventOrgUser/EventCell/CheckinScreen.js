@@ -3,6 +3,7 @@ import { ExpoConfigView } from "@expo/samples";
 import base64 from "react-native-base64";
 import GlobalConstants from "../../../GlobalConstants";
 import Constants from "expo-constants";
+import CheckinButton from "./CheckinButton";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import {
   StyleSheet,
@@ -35,17 +36,17 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class CheckinForm extends React.Component {
+export default class CheckinScreen extends React.Component {
   static uuid;
   constructor(props) {
     super(props);
     this.state = { isLoading: true };
-    CheckinForm.uuid = props.navigation.state.params.item;
+    CheckinScreen.uuid = props.navigation.state.params.item;
   }
 
   componentDidMount() {
     const queryString = {
-      uuid: CheckinForm.uuid
+      uuid: CheckinScreen.uuid
     };
     var url =
       GlobalConstants.API_BASE_URL +
@@ -90,6 +91,7 @@ export default class CheckinForm extends React.Component {
         <Text style={styles.subtitle}>{event["Start time"]}</Text>
         <Text style={styles.subtitle}>{event.Location}</Text>
         <Text style={styles.subtitle}>{event["Organization title"]}</Text>
+        <CheckinButton orgId={event.Organization} eventId={event.uuid} />
       </View>
     );
   }
