@@ -6,7 +6,7 @@ import LoginScreen from "../screens/Login/LoginScreen";
 import RegisterScreen from "../screens/Register/RegisterScreen";
 import SubmitButton from "../screens/Login/SubmitButton";
 import EventList from "../screens/EventOrgUser/EventList";
-import EventStack from "./MainTabNavigator";
+import EventStack from "./UsrTabNavigator";
 /*const config = Platform.select({
   web: { headerMode: "screen" },
   default: {}
