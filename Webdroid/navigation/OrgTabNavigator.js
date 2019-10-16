@@ -23,7 +23,7 @@ const EventStack = createStackNavigator(
     List: {
       screen: EventList,
       navigationOptions: {
-        title: "EventsmE"
+        title: "Eventsm"
       }
     },
     Edit: {
