@@ -12,7 +12,7 @@ const switchNavigator = createSwitchNavigatorcreateSwitchNavigator(
     Org: OrgTabNavigator
   },
   {
-    initialRouteName: "Org"
+    initialRouteName: "Main"
   }
 );
 switchNavigator.path = "";

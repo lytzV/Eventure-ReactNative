@@ -23,7 +23,10 @@ const EventStack = createStackNavigator(
     List: {
       screen: EventList,
       navigationOptions: {
-        title: "Eventsm"
+        title: "Events",
+        headerStyle: {
+          //borderColor: "#FFFFFF"
+        }
       }
     },
     Edit: {

@@ -13,7 +13,7 @@ export default createAppContainer(
       Org: OrgTabNavigator
     },
     {
-      initialRouteName: "Org"
+      initialRouteName: "Main"
     }
   )
 );
