@@ -4,7 +4,6 @@ import base64 from "react-native-base64";
 import utf8 from "utf8";
 import GlobalConstants from "../../GlobalConstants";
 import Dimensions from "Dimensions";
-import RegisterScreen from "./RegisterScreen";
 import RegisterForm from "./RegisterForm";
 import {
   StyleSheet,
