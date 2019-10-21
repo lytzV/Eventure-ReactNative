@@ -119,14 +119,14 @@ export default class EventList extends React.Component {
       );
     }
     return (
-      <View style={{ flex: 1, paddingTop: 0 }}>
+      <View
+        style={{ flex: 1, paddingTop: 0, marginTop: Constants.statusBarHeight }}
+      >
         <View
           style={{
             marginHorizontal: 20,
             justifyContent: "center",
-            backgroundColor: "#FFFFFF",
-            borderColor: "#FFFFFF"
-            //borderWidth: 20
+            backgroundColor: "#FFFFFF"
           }}
         >
           <SearchBar
@@ -139,8 +139,7 @@ export default class EventList extends React.Component {
               backgroundColor: "#FFFFFF",
               borderColor: "#FFFFFF",
               borderRadius: 10,
-              shadowColor: "white",
-              borderBottomColor: "transparent",
+              borderBottomColor: "transparent", //otherwise there will be grey lines
               borderTopColor: "transparent"
             }}
             inputContainerStyle={{

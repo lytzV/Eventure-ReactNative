@@ -10,7 +10,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import EventList from "../screens/Org/OrgEventList";
 import OrgSetting from "../screens/Org/OrgSetting";
 import EventDetail from "../screens/EventOrgUser/EventCell/EventCell";
-import QR from "../screens/EventOrgUser/QR";
+import QR from "../screens/EventOrgUser/SettingOptions/QR";
 import Editor from "../screens/Org/Editor";
 
 const config = Platform.select({

@@ -1,6 +1,7 @@
 import React from "react";
 import base64 from "react-native-base64";
 import GlobalConstants from "../../GlobalConstants";
+import { SearchBar } from "react-native-elements";
 import Constants from "expo-constants";
 import {
   StyleSheet,
@@ -17,8 +18,9 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "#FF7868",
+    opacity: 0.87,
     padding: 20,
-    marginVertical: 8,
+    marginVertical: 4,
     marginHorizontal: 16
   },
   title: {
@@ -42,9 +44,16 @@ function Item({ title }) {
 export default class OrgList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoading: true };
+    this.state = {
+      isLoading: true,
+      search: ""
+    };
   }
-
+  updateSearch = search => {
+    this.setState({
+      search: search
+    });
+  };
   componentDidMount() {
     var url = GlobalConstants.API_BASE_URL + "account/ListOrgs";
     var httpheader = new Headers();
@@ -82,6 +91,36 @@ export default class OrgList extends React.Component {
     }
     return (
       <View style={{ flex: 1, paddingTop: 20 }}>
+        <View
+          style={{
+            marginHorizontal: 20,
+            justifyContent: "center",
+            backgroundColor: "#FFFFFF",
+            borderColor: "#FFFFFF"
+            //borderWidth: 20
+          }}
+        >
+          <SearchBar
+            placeholder="Search Clubs..."
+            onChangeText={this.updateSearch}
+            value={this.state.search}
+            lightTheme={true}
+            backgroundColor="whitesmoke"
+            containerStyle={{
+              backgroundColor: "#FFFFFF",
+              borderColor: "#FFFFFF",
+              borderRadius: 10,
+              shadowColor: "white",
+              borderBottomColor: "transparent",
+              borderTopColor: "transparent"
+            }}
+            inputContainerStyle={{
+              backgroundColor: "whitesmoke",
+              borderColor: "#FFFFFF",
+              borderRadius: 10
+            }}
+          />
+        </View>
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => <Item title={item.Title} />}

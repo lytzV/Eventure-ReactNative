@@ -25,7 +25,6 @@ import Constants from "expo-constants";
 
 export default class UserSetting extends React.Component {
   render() {
-    const { manifest } = Constants;
     const sections = [
       {
         data: ["Manage Account", "Professional Profile"],
@@ -50,13 +49,12 @@ export default class UserSetting extends React.Component {
           renderSectionHeader={this.renderSectionHeader}
           stickySectionHeadersEnabled={true}
           keyExtractor={(item, index) => index}
-          //ListHeaderComponent={ListHeader}
           sections={sections}
         />
         <View style={styles.button}>
           <Button
             title={user != null ? "Sign Out" : "Sign In"}
-            color="#f194ff"
+            color="black"
             onPress={() => this.inOrOut()}
           />
         </View>
@@ -85,36 +83,24 @@ export default class UserSetting extends React.Component {
     );
   };
   reveal = item => {
-    if (item == "Scan Event Code") {
-      this.props.navigation.navigate("QR");
+    switch (item) {
+      case "Manage Account":
+        this.props.navigation.navigate("account");
+        break;
+      case "Professional Profile":
+        this.props.navigation.navigate("pro");
+        break;
+      case "Scan Event Code":
+        this.props.navigation.navigate("QR");
+        break;
+      case "Events I Checked In":
+      case "Favorite Events":
+      case "Interested Events":
+      case "My Tags":
+      default:
     }
-    //this.props.navigation.navigate("Details", { ...item });
   };
 }
-
-const ListHeader = () => {
-  const { manifest } = Constants;
-
-  return (
-    <View style={styles.titleContainer}>
-      <View style={styles.titleIconContainer}>
-        <AppIconPreview iconUrl={manifest.iconUrl} />
-      </View>
-
-      <View style={styles.titleTextContainer}>
-        <Text style={styles.nameText} numberOfLines={1}>
-          {manifest.name}
-        </Text>
-
-        <Text style={styles.slugText} numberOfLines={1}>
-          {manifest.slug}
-        </Text>
-
-        <Text style={styles.descriptionText}>{manifest.description}</Text>
-      </View>
-    </View>
-  );
-};
 
 const SectionHeader = ({ title }) => {
   return (
@@ -128,21 +114,6 @@ const SectionContent = props => {
   return <View style={styles.item}>{props.children}</View>;
 };
 
-const AppIconPreview = ({ iconUrl }) => {
-  if (!iconUrl) {
-    iconUrl =
-      "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png";
-  }
-
-  return (
-    <Image
-      source={{ uri: iconUrl }}
-      style={{ width: 64, height: 64 }}
-      resizeMode="cover"
-    />
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -150,28 +121,23 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 0,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingVertical: 3,
+    borderWidth: 1,
+    borderColor: "gainsboro"
   },
   item: {
     backgroundColor: "#FF7868",
-    marginVertical: 8,
+    opacity: 0.88,
+    marginVertical: 4,
     marginHorizontal: 16,
     paddingTop: 12,
     paddingBottom: 12,
     paddingHorizontal: 15
   },
-  titleContainer: {
-    paddingHorizontal: 15,
-    paddingTop: 15,
-    paddingBottom: 15,
-    flexDirection: "row"
-  },
-  titleIconContainer: {
-    marginRight: 15,
-    paddingTop: 2
-  },
   sectionHeaderContainer: {
     backgroundColor: "#fbfbfb",
+    marginTop: 4,
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderWidth: StyleSheet.hairlineWidth,
@@ -183,20 +149,6 @@ const styles = StyleSheet.create({
   sectionContentText: {
     color: "#FFFFFF",
     fontSize: 14
-  },
-  nameText: {
-    fontWeight: "600",
-    fontSize: 18
-  },
-  slugText: {
-    color: "#a39f9f",
-    fontSize: 14,
-    backgroundColor: "transparent"
-  },
-  descriptionText: {
-    fontSize: 14,
-    marginTop: 6,
-    color: "#4d4d4d"
   }
 });
 UserSetting.navigationOptions = {
