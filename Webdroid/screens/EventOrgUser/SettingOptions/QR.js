@@ -2,7 +2,7 @@ import * as React from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import * as Permissions from "expo-permissions";
 import base64 from "react-native-base64";
-import GlobalConstants from "../../GlobalConstants";
+import GlobalConstants from "../../../GlobalConstants";
 import Constants from "expo-constants";
 
 import { BarCodeScanner } from "expo-barcode-scanner";

@@ -12,8 +12,11 @@ import OrgList from "../screens/EventOrgUser/OrgList";
 import UserSetting from "../screens/EventOrgUser/UserSetting";
 import EventDetail from "../screens/EventOrgUser/EventCell/EventCell";
 import Login from "../screens/Login/LoginScreen";
-import QR from "../screens/EventOrgUser/QR";
+import QR from "../screens/EventOrgUser/SettingOptions/QR";
+import Account from "../screens/EventOrgUser/SettingOptions/ManageAccount";
+import Professional from "../screens/EventOrgUser/SettingOptions/ProfessionalProfile";
 import Checkin from "../screens/EventOrgUser/EventCell/CheckinScreen";
+
 const config = Platform.select({
   web: { headerMode: "screen" },
   default: {}
@@ -99,6 +102,22 @@ const SettingsStack = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerMode: "screen",
         title: "Check In Here",
+        tabBarVisible: false
+      })
+    },
+    account: {
+      screen: Account,
+      navigationOptions: ({ navigation }) => ({
+        headerMode: "screen",
+        title: "Account Management",
+        tabBarVisible: false
+      })
+    },
+    pro: {
+      screen: Professional,
+      navigationOptions: ({ navigation }) => ({
+        headerMode: "screen",
+        title: "Professional Profile",
         tabBarVisible: false
       })
     }
