@@ -52,7 +52,7 @@ export default class OrgSetting extends React.Component {
         <View style={styles.button}>
           <Button
             title={user != null ? "Sign Out" : "Sign In"}
-            color="#f194ff"
+            color="black"
             onPress={() => this.inOrOut()}
           />
         </View>
@@ -146,7 +146,10 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 0,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingVertical: 3,
+    borderWidth: 1,
+    borderColor: "gainsboro"
   },
   item: {
     backgroundColor: "#FF7868",
@@ -155,16 +158,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
     paddingHorizontal: 15
-  },
-  titleContainer: {
-    paddingHorizontal: 15,
-    paddingTop: 15,
-    paddingBottom: 15,
-    flexDirection: "row"
-  },
-  titleIconContainer: {
-    marginRight: 15,
-    paddingTop: 2
   },
   sectionHeaderContainer: {
     backgroundColor: "#fbfbfb",
@@ -179,20 +172,6 @@ const styles = StyleSheet.create({
   sectionContentText: {
     color: "#FFFFFF",
     fontSize: 14
-  },
-  nameText: {
-    fontWeight: "600",
-    fontSize: 18
-  },
-  slugText: {
-    color: "#a39f9f",
-    fontSize: 14,
-    backgroundColor: "transparent"
-  },
-  descriptionText: {
-    fontSize: 14,
-    marginTop: 6,
-    color: "#4d4d4d"
   }
 });
 OrgSetting.navigationOptions = {
