@@ -11,7 +11,8 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -46,7 +47,7 @@ function Item({ title, when, where, who }) {
 }
 
 export default class OrgEventList extends React.Component {
-  static org = "berkeleyAcademics";
+  static org = "";
   constructor(props) {
     super(props);
     this.state = { isLoading: true };
@@ -54,9 +55,11 @@ export default class OrgEventList extends React.Component {
 
   async _retrieveUser() {
     try {
-      const usr = await AsyncStorage.getItem("User");
-      if (usr !== null) {
-        await (OrgEventList.org = usr);
+      var org = await AsyncStorage.getItem("Org");
+      org = JSON.parse(org)["org info"]["ID"];
+      console.log(org);
+      if (org !== null) {
+        await (OrgEventList.org = org);
       }
     } catch (error) {
       console.log(error);

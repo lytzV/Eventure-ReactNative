@@ -65,7 +65,7 @@ export default class SubmitButton extends Component {
     fetch(req)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        //console.log(response);
         this.setState({
           isLoading: false,
           data: response
@@ -88,7 +88,7 @@ export default class SubmitButton extends Component {
 
     setTimeout(() => {
       if (this.state.data.status == "success") {
-        this.login(this.state.data["user info"]);
+        this.login(this.state.data);
       } else {
         this.popAlert(this.state.data.status);
       }
@@ -98,8 +98,15 @@ export default class SubmitButton extends Component {
     }, 2300);
   }
   login = async user => {
-    await AsyncStorage.setItem("User", JSON.stringify(user));
-    this.props.navigation.navigate("Main");
+    if (user["user info"] != null) {
+      await AsyncStorage.setItem("User", JSON.stringify(user));
+      console.log(user["user info"]);
+      this.props.navigation.navigate("Main");
+    } else if (user["org info"] != null) {
+      await AsyncStorage.setItem("Org", JSON.stringify(user));
+      console.log(user["org info"]);
+      this.props.navigation.navigate("Org");
+    }
   };
 
   popAlert = status => {
