@@ -15,6 +15,7 @@ import Login from "../screens/Login/LoginScreen";
 import QR from "../screens/EventOrgUser/SettingOptions/QR";
 import Account from "../screens/EventOrgUser/SettingOptions/ManageAccount";
 import Professional from "../screens/EventOrgUser/SettingOptions/ProfessionalProfile";
+import CheckedIn from "../screens/EventOrgUser/SettingOptions/CheckedInEvents";
 import Checkin from "../screens/EventOrgUser/EventCell/CheckinScreen";
 
 const config = Platform.select({
@@ -118,6 +119,14 @@ const SettingsStack = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerMode: "screen",
         title: "Professional Profile",
+        tabBarVisible: false
+      })
+    },
+    checked: {
+      screen: CheckedIn,
+      navigationOptions: ({ navigation }) => ({
+        headerMode: "screen",
+        title: "Events I Checked In",
         tabBarVisible: false
       })
     }
