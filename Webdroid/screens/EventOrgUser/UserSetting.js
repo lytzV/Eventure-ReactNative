@@ -24,6 +24,18 @@ import {
 import Constants from "expo-constants";
 
 export default class UserSetting extends React.Component {
+  static user;
+  constructor(props) {
+    super(props);
+  }
+  async componentDidMount() {
+    var user = await this.getUser();
+    UserSetting.user = JSON.parse(user)["user info"];
+    console.log(UserSetting.user);
+  }
+  async getUser() {
+    return await AsyncStorage.getItem("User");
+  }
   render() {
     const sections = [
       {
@@ -39,8 +51,7 @@ export default class UserSetting extends React.Component {
         title: "PERSONAL INTEREST"
       }
     ];
-    var user = AsyncStorage.getItem("User");
-    console.log(user);
+    var user = UserSetting.user;
     return (
       <View style={styles.container}>
         <SectionList
@@ -62,10 +73,9 @@ export default class UserSetting extends React.Component {
     );
   }
   //lambda func
-  inOrOut = () => {
-    var user = AsyncStorage.getItem("User");
-    if (user != null) {
-      AsyncStorage.clear();
+  inOrOut = async () => {
+    if (UserSetting.user != null) {
+      await AsyncStorage.clear();
     }
     this.props.navigation.navigate("Auth");
   };
@@ -85,15 +95,17 @@ export default class UserSetting extends React.Component {
   reveal = item => {
     switch (item) {
       case "Manage Account":
-        this.props.navigation.navigate("account");
+        this.props.navigation.navigate("account", { ...UserSetting.user });
         break;
       case "Professional Profile":
-        this.props.navigation.navigate("pro");
+        this.props.navigation.navigate("pro", { ...UserSetting.user });
         break;
       case "Scan Event Code":
         this.props.navigation.navigate("QR");
         break;
       case "Events I Checked In":
+        this.props.navigation.navigate("checked", { ...UserSetting.user });
+        break;
       case "Favorite Events":
       case "Interested Events":
       case "My Tags":

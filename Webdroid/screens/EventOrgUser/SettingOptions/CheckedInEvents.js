@@ -1,7 +1,7 @@
 import React from "react";
-import EventCell from "./EventCell/EventCell";
+import EventCell from "../EventCell/EventCell";
 import base64 from "react-native-base64";
-import GlobalConstants from "../../GlobalConstants";
+import GlobalConstants from "../../../GlobalConstants";
 import Constants from "expo-constants";
 import { SearchBar } from "react-native-elements";
 import { createStackNavigator, createAppContainer } from "react-navigation";
@@ -16,16 +16,8 @@ import {
   Image,
   StatusBar
 } from "react-native";
-import berkeley from "../../assets/images/berkeley.png";
 
 const styles = StyleSheet.create({
-  imgcontainer: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 0,
-    marginHorizontal: 0,
-    marginBottom: 5
-  },
   item: {
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
@@ -41,12 +33,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 5
   },
-  cover: {
-    aspectRatio: 17 / 9,
-    height: 200,
-    resizeMode: "cover",
-    marginHorizontal: 0
-  },
   title: {
     fontSize: 15,
     color: "#000000"
@@ -61,9 +47,6 @@ const styles = StyleSheet.create({
 function Item({ title, when, where, who, cover }) {
   return (
     <View style={styles.item}>
-      <View style={styles.imgcontainer}>
-        <Image style={styles.cover} source={berkeley} />
-      </View>
       <View style={styles.infocontainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{when}</Text>
@@ -74,9 +57,11 @@ function Item({ title, when, where, who, cover }) {
   );
 }
 
-export default class CheckInEvents extends React.Component {
+export default class CheckedInEvents extends React.Component {
+  static usrId = "";
   constructor(props) {
     super(props);
+    CheckedInEvents.usrId = props.navigation.state.params.uuid;
     this.state = {
       isLoading: true,
       search: ""
@@ -84,7 +69,13 @@ export default class CheckInEvents extends React.Component {
   }
 
   componentDidMount() {
-    var url = GlobalConstants.API_BASE_URL + "events/GetCheckedInEvents";
+    const queryString = {
+      usr: CheckedInEvents.usrId
+    };
+    var url =
+      GlobalConstants.API_BASE_URL +
+      "events/GetCheckedInEvents?userId=" +
+      encodeURIComponent(queryString.usr);
     var httpheader = new Headers();
     var token = GlobalConstants.USERNAME + ":" + GlobalConstants.PASSWORD;
     httpheader.append("Authorization", "Basic " + base64.encode(token));
@@ -122,33 +113,6 @@ export default class CheckInEvents extends React.Component {
       <View
         style={{ flex: 1, paddingTop: 0, marginTop: Constants.statusBarHeight }}
       >
-        <View
-          style={{
-            marginHorizontal: 20,
-            justifyContent: "center",
-            backgroundColor: "#FFFFFF"
-          }}
-        >
-          <SearchBar
-            placeholder="Search Events..."
-            onChangeText={this.updateSearch}
-            value={this.state.search}
-            lightTheme={true}
-            backgroundColor="whitesmoke"
-            containerStyle={{
-              backgroundColor: "#FFFFFF",
-              borderColor: "#FFFFFF",
-              borderRadius: 10,
-              borderBottomColor: "transparent", //otherwise there will be grey lines
-              borderTopColor: "transparent"
-            }}
-            inputContainerStyle={{
-              backgroundColor: "whitesmoke",
-              borderColor: "#FFFFFF",
-              borderRadius: 10
-            }}
-          />
-        </View>
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => (
@@ -158,7 +122,6 @@ export default class CheckInEvents extends React.Component {
                 when={item["Start time"]}
                 where={item.Location}
                 who={item["Organization title"]}
-                cover={this.retrieveCover(item.uuid)}
               />
             </TouchableOpacity>
           )}
@@ -167,40 +130,9 @@ export default class CheckInEvents extends React.Component {
       </View>
     );
   }
-  async retrieveCover(eventId) {
-    var url =
-      GlobalConstants.API_BASE_URL +
-      "events/GetEventCover?uuid=" +
-      encodeURIComponent(eventId);
-    var httpheader = new Headers();
-    var token = GlobalConstants.USERNAME + ":" + GlobalConstants.PASSWORD;
-    httpheader.append("Authorization", "Basic " + base64.encode(token));
-    let req = new Request(url, {
-      method: "POST",
-      headers: httpheader,
-      credentials: "include"
-    });
-    fetch(req)
-      .then(async response => {
-        const data = await response.text();
-        if (data == "no cover found") {
-          console.log("berkeley");
-          return berkeley;
-        } else {
-          return berkeley;
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+
   //arrow functions don't need binding because it doesn't have "this" when called, https://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/
   //methods in JS define their context when executed but not defined, so "this" is not necessarily tied to its creator, that's why we need binding for normal functions
-  updateSearch = search => {
-    this.setState({
-      search: search
-    });
-  };
   reveal = item => {
     //console.log('Selected Item :',item);
     //console.log(EventCell.uuid);
@@ -208,6 +140,6 @@ export default class CheckInEvents extends React.Component {
   };
 }
 
-EventList.navigationOptions = {
+CheckedInEvents.navigationOptions = {
   title: "Events"
 };
