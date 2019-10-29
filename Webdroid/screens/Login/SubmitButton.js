@@ -5,7 +5,7 @@ import GlobalConstants from "../../GlobalConstants";
 import Dimensions from "Dimensions";
 import LoginScreen from "./LoginScreen";
 import LoginForm from "./LoginForm";
-import UserSetting from "../EventOrgUser/UserSetting";
+import User from "../../DataStructure/User";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -89,6 +89,22 @@ export default class SubmitButton extends Component {
     setTimeout(() => {
       if (this.state.data.status == "success") {
         this.login(this.state.data);
+        var user = this.state.data["user info"];
+        User.current = new User(
+          user["uuid"],
+          user["email"],
+          user["Displayed name"],
+          user["Gender"],
+          user["Liked events"],
+          user["Interested"]
+        );
+        console.log(User.current.uuid);
+        User.current["interestedEvents"] = User.current["interestedEvents"]
+          .slice(1, -1)
+          .split(",");
+        User.current["favoritedEvents"] = User.current["favoritedEvents"]
+          .slice(1, -1)
+          .split(",");
       } else {
         this.popAlert(this.state.data.status);
       }
