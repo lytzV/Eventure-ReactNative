@@ -22,11 +22,13 @@ import {
   SafeAreaView
 } from "react-native";
 import Constants from "expo-constants";
+import User from "../../DataStructure/User";
 
 export default class UserSetting extends React.Component {
   static user;
   constructor(props) {
     super(props);
+    //console.log(User.current.uuid);
   }
   async componentDidMount() {
     var user = await this.getUser();
@@ -75,7 +77,9 @@ export default class UserSetting extends React.Component {
   //lambda func
   inOrOut = async () => {
     if (UserSetting.user != null) {
+      console.log("clearing user...");
       await AsyncStorage.clear();
+      User.current = null;
     }
     this.props.navigation.navigate("Auth");
   };

@@ -44,13 +44,12 @@ const styles = StyleSheet.create({
 });
 
 //this is a functional component
-function Item({ title, when, where, who, cover }) {
+function Item({ title, when, who }) {
   return (
     <View style={styles.item}>
       <View style={styles.infocontainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{when}</Text>
-        <Text style={styles.subtitle}>{where}</Text>
         <Text style={styles.subtitle}>{who}</Text>
       </View>
     </View>
@@ -116,14 +115,11 @@ export default class CheckedInEvents extends React.Component {
         <FlatList
           data={this.state.data}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => this.reveal(item)}>
-              <Item
-                title={item.Title}
-                when={item["Start time"]}
-                where={item.Location}
-                who={item["Organization title"]}
-              />
-            </TouchableOpacity>
+            <Item
+              title={item.Title}
+              when={item["Date"]}
+              who={item["Organization title"]}
+            />
           )}
           keyExtractor={item => item.uuid}
         />

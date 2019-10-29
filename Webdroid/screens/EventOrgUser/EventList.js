@@ -184,7 +184,7 @@ export default class EventList extends React.Component {
       .then(async response => {
         const data = await response.text();
         if (data == "no cover found") {
-          console.log("berkeley");
+          //console.log("berkeley");
           return berkeley;
         } else {
           return berkeley;
