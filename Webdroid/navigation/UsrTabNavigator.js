@@ -17,6 +17,8 @@ import Account from "../screens/EventOrgUser/SettingOptions/ManageAccount";
 import Professional from "../screens/EventOrgUser/SettingOptions/ProfessionalProfile";
 import CheckedIn from "../screens/EventOrgUser/SettingOptions/CheckedInEvents";
 import Checkin from "../screens/EventOrgUser/EventCell/CheckinScreen";
+import Favorite from "../screens/EventOrgUser/SettingOptions/FavoriteEvents";
+import Interested from "../screens/EventOrgUser/SettingOptions/InterestedEvents";
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -127,6 +129,22 @@ const SettingsStack = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerMode: "screen",
         title: "Events I Checked In",
+        tabBarVisible: false
+      })
+    },
+    favorited: {
+      screen: Favorite,
+      navigationOptions: ({ navigation }) => ({
+        headerMode: "screen",
+        title: "Events I Liked",
+        tabBarVisible: false
+      })
+    },
+    interested: {
+      screen: Interested,
+      navigationOptions: ({ navigation }) => ({
+        headerMode: "screen",
+        title: "Events Interested",
         tabBarVisible: false
       })
     }
