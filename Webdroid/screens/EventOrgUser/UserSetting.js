@@ -35,6 +35,7 @@ export default class UserSetting extends React.Component {
     UserSetting.user = JSON.parse(user)["user info"];
     console.log(UserSetting.user);
   }
+  // TODO: Fix this with User.current after you get the guest signin done
   async getUser() {
     return await AsyncStorage.getItem("User");
   }
@@ -111,7 +112,11 @@ export default class UserSetting extends React.Component {
         this.props.navigation.navigate("checked", { ...UserSetting.user });
         break;
       case "Favorite Events":
+        this.props.navigation.navigate("favorited", { ...UserSetting.user });
+        break;
       case "Interested Events":
+        this.props.navigation.navigate("interested", { ...UserSetting.user });
+        break;
       case "My Tags":
       default:
     }
